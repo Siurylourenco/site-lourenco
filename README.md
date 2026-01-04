@@ -15,11 +15,13 @@ Este projeto representa um marco importante no meu crescimento como desenvolvedo
 |-------------------------|------------|
 | `HTML5` | Estrutura semântica do site |
 | `CSS3` | Estilização e layout |
-| `JavaScript` | Interatividade |
-| `Git & GitHub` | Versionamento de código |
-| `HostGator` | Hospedagem do site |
-| `Google Search Console` | Monitoramento e SEO |
-| `DNS / Domínio` | Configuração de apontamento |
+| `JavaScript` | Interatividade e lógica |
+| `Git & GitHub` | Versionamento e controle de código |
+| `HostGator` | Hospedagem do site em ambiente de produção |
+| `DNS / Domínio` | Configuração de apontamento e publicação |
+| `Freeform` | Backend no-code para envio e processamento de formulários |
+| `Google Search Console` | Indexação, monitoramento e SEO |
+
 
 ## 🌍 Hospedagem e Deploy
 
@@ -55,8 +57,33 @@ Essas etapas fazem parte do processo real de entrega de um site profissional.
 - Botão de contato direto para WhatsApp;
 - **Formulário de contato funcional com envio de dados**;
 - **Backend no-code utilizando Freeform**;
+  
+### 🔗 Elementos de Conversão e UX
+- **Botão de contato direto para WhatsApp**, visível e acessível, permitindo que o usuário inicie uma conversa imediata sem etapas intermediárias;
+- Implementação focada em **redução de fricção**, facilitando a conversão do visitante em contato;
+- **Formulário de contato funcional**, oferecendo uma alternativa ao WhatsApp para diferentes perfis de usuário;
+- Integração do formulário com **backend no-code (Freeform)** para envio e processamento de dados;
+- Redirecionamento pós-envio para a página de agradecimento (`obrigado.html`), confirmando visualmente a ação do usuário;
 
-  ## 📝 Formulário de Contato e Backend (Freeform)
+### 🧭 Navegação e Usabilidade
+- **Seta de retorno ao topo da página**, permitindo que o usuário volte rapidamente ao início sem precisar rolar manualmente;
+- Melhoria da experiência em páginas mais longas, especialmente em dispositivos móveis;
+- Elementos visuais pensados para orientar o usuário durante a navegação.
+
+## 🎯 Conversão e Experiência do Usuário (UX)
+
+O site foi desenvolvido com foco em **experiência do usuário (UX)** e **conversão**, buscando facilitar a navegação e reduzir o número de ações necessárias para que o visitante entre em contato.
+
+Foram aplicados princípios como:
+- Redução de fricção na navegação;
+- Clareza nos pontos de contato;
+- Ações intuitivas e acessíveis;
+- Foco em usabilidade para usuários não técnicos.
+
+Cada elemento do site foi pensado para guiar o usuário de forma natural até o contato.
+
+
+## 📝 Formulário de Contato e Backend (Freeform)
 
 O site conta com um **formulário de contato funcional**, permitindo que visitantes enviem seus dados de forma prática.
 
@@ -88,6 +115,5 @@ Esse fluxo simula um **ambiente real de produção**, comum em sites institucion
 - Criação de fluxo de conversão (WhatsApp + formulário);
 - Integração de formulário com backend no-code (Freeform);
 - Entendimento do fluxo completo de entrega de um site para produção.
-
 - Redirecionamento pós-envio para confirmação ao usuário.
 
