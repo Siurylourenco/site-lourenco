@@ -51,7 +51,43 @@ Essas etapas fazem parte do processo real de entrega de um site profissional.
 - Navegação simples entre páginas;
 - Página de agradecimento (`obrigado.html`);
 - Estilos personalizados em CSS;
-- Scripts JavaScript para interações básicas.
+- Interações básicas com JavaScript;
+- Botão de contato direto para WhatsApp;
+- **Formulário de contato funcional com envio de dados**;
+- **Backend no-code utilizando Freeform**;
 
-## 📂 Estrutura do Projeto
+  ## 📝 Formulário de Contato e Backend (Freeform)
+
+O site conta com um **formulário de contato funcional**, permitindo que visitantes enviem seus dados de forma prática.
+
+Para o backend do formulário, foi utilizada a plataforma **Freeform**, uma solução no-code que recebe, processa e armazena os dados enviados sem a necessidade de um servidor próprio.
+
+### 🔄 Fluxo de funcionamento
+
+1. O usuário preenche o formulário no site;
+2. Os dados são enviados via requisição HTTP;
+3. O **Freeform** recebe e processa as informações;
+4. O usuário é redirecionado para a página de agradecimento (`obrigado.html`).
+
+Esse fluxo simula um **ambiente real de produção**, comum em sites institucionais e landing pages.
+
+### 🎯 Vantagens da solução
+
+- Não requer backend próprio;
+- Rápida implementação;
+- Ideal para projetos institucionais e MVPs;
+- Redução de custos de infraestrutura;
+- Integração simples com formulários HTML.
+
+## 🎯 Aprendizados com o Projeto
+
+- Desenvolvimento de site institucional do zero;
+- Publicação em hospedagem profissional (HostGator);
+- Configuração de domínio e DNS;
+- Implementação de SEO com Google Search Console;
+- Criação de fluxo de conversão (WhatsApp + formulário);
+- Integração de formulário com backend no-code (Freeform);
+- Entendimento do fluxo completo de entrega de um site para produção.
+
+- Redirecionamento pós-envio para confirmação ao usuário.
 
