@@ -1,0 +1,1906 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+.counter {
+  font-weight: 700;
+  font-size: clamp(20px, 3.2vw, 36px);
+}
+body {
+  background: #000000;
+  color: #ffffff;
+  font-family: "Urbanist", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal.revealed,
+  .back-to-top,
+  .btn-neon {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* ============================
+   HEADER
+============================ */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.4);
+  background: #000000;
+}
+
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #f1f5f9;
+}
+
+/* Menu desktop */
+.nav-desktop {
+  display: none;
+}
+
+.nav-desktop a {
+  color: rgba(226, 232, 240, 0.8);
+  font-size: 14px;
+  text-decoration: none;
+  padding-bottom: 3px;
+}
+
+.nav-desktop a {
+  color: rgba(226, 232, 240, 0.9);
+  font-size: 14px;
+  text-decoration: none;
+  padding-bottom: 6px;
+  position: relative;
+  transition: color 0.16s ease, transform 0.16s ease;
+}
+
+.nav-desktop a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 0;
+  background: var(--accent-highlight);
+  border-radius: 2px;
+  transition: width 0.18s ease, opacity 0.18s ease;
+  opacity: 0.95;
+}
+
+.nav-desktop a:hover {
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.nav-desktop a:hover::after {
+  width: 100%;
+}
+
+/* active state (set by JS) */
+.nav-desktop a.active {
+  color: var(--accent-highlight);
+  transform: translateY(-2px);
+}
+
+.nav-desktop a.active::after {
+  width: 100%;
+}
+
+/* Botão mobile */
+/* --- ajuste base: mantém estrutura mas NÃO força display:none permanentemente --- */
+.nav-mobile {
+  /* por padrão escondido, mas controlado por .hidden ou .open */
+  display: none; /* keep default hidden */
+  flex-direction: column;
+  gap: 12px;
+  margin: 12px;
+  padding: 12px 16px;
+  border: 1px solid rgba(100, 116, 139, 0.6);
+  background: #0d0d0d;
+  border-radius: 18px;
+}
+
+/* Classe que abre o menu: deixa explícito o display quando aberto */
+.nav-mobile.open {
+  display: flex; /* mostra como coluna flex quando aberto */
+}
+
+/* Se você usa .hidden em algum lugar, deixe claro o comportamento */
+.nav-mobile.hidden {
+  display: none !important;
+}
+
+/* Botão - mantém seu estilo, só garanto z-index e pointer */
+.menu-toggle {
+  display: flex;
+  width: 40px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(100, 116, 139, 0.6);
+  background: transparent;
+  border-radius: 50px;
+  position: relative;
+  z-index: 9999;
+}
+
+/* ícone */
+.menu-icon,
+.menu-icon::before,
+.menu-icon::after {
+  width: 16px;
+  height: 2px;
+  background: #ffffff;
+  border-radius: 4px;
+  content: "";
+  display: block;
+  position: relative;
+}
+.menu-icon::before {
+  position: absolute;
+  top: -6px;
+}
+.menu-icon::after {
+  position: absolute;
+  top: 6px;
+}
+
+/* quando aberto, anima o X */
+.menu-toggle.open .menu-icon {
+  background: #f03704;
+}
+.menu-toggle.open .menu-icon::before {
+  transform: rotate(45deg);
+  top: 0;
+}
+.menu-toggle.open .menu-icon::after {
+  transform: rotate(-45deg);
+  top: 0;
+}
+/* ----------------------------------
+   LINKS MOBILE: manter estilo do desktop
+   ---------------------------------- */
+
+/* Garante cor e ausência de sublinhado */
+.nav-mobile a,
+.nav-mobile a:link,
+.nav-mobile a:visited,
+.nav-mobile a:active,
+.nav-mobile a:hover {
+  color: #e2e8f0; /* usa a cor herdada (ou troque por #e2e8f0 por exemplo) */
+  text-decoration: none; /* remove sublinhado */
+  background: transparent; /* remove realce de fundo */ /* recolhe outline padrão (mas veja nota de acessibilidade abaixo) */
+}
+
+.nav-mobile a:focus {
+  outline: none;
+}
+.nav-mobile a:focus-visible {
+  /* estilo leve para quem navega por teclado (mantém acessibilidade) */
+  outline: 2px solid rgba(226, 232, 240, 0.12);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.nav-mobile a:active,
+.nav-mobile.open a:active {
+  color: var(--cor-laranja-menu);
+}
+
+/* RESPONSIVIDADE: esconder botão apenas em desktop (mantém controle via display das classes) */
+@media (min-width: 768px) {
+  .menu-toggle {
+    display: none;
+  }
+  .nav-desktop {
+    display: flex;
+    gap: 24px;
+  }
+  /* não force .nav-mobile a display:none com !important — controle via classes */
+}
+
+/* ============================
+   HERO
+============================ */
+.hero-full {
+  position: relative;
+  min-height: 88vh;
+  display: grid;
+  align-items: center;
+  background: #000000;
+  overflow: hidden;
+  padding: 0;
+  justify-content: center;
+  width: 100%;
+}
+
+.hero-inner {
+  max-width: 1100px;
+  padding: 6rem 1.25rem;
+  margin: 0 auto;
+  display: grid;
+  gap: 60px;
+  grid-template-columns: 1fr;
+  position: relative;
+  z-index: 2;
+  justify-content: space-between;
+  width: 85%;
+  align-items: center;
+}
+
+@media (min-width: 992px) {
+  .hero-inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+}
+
+.hero-sub {
+  margin-bottom: 8px;
+  font-size: 12px;
+  color: #ffffff;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.hero-title {
+  font-family: "Raleway", sans-serif;
+  font-size: clamp(30px, 5.5vw, 90px);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  max-width: 62ch;
+  text-align: left;
+}
+
+/* Bloco de texto já existente */
+.hero-content {
+  flex: 1;
+}
+
+/* BLOCO DA IMAGEM */
+.hero-image-wrapper {
+  display: flex;
+  flex: 80%;
+  justify-content: center;
+}
+
+.hero-image {
+  width: 100%;
+  border-radius: 10px;
+  opacity: 0.6; /* Opacidade suave */
+  filter: brightness(0.95); /* Deixa elegante */
+  transition: opacity 0.3s ease;
+}
+
+.hero-image:hover {
+  opacity: 1;
+}
+
+/* Fundo com luz laranja passando */
+.light-sweep {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+
+  background: linear-gradient(
+    120deg,
+    rgba(255, 94, 0, 0) 10%,
+    rgba(155, 31, 162, 0.214) 70%,
+    rgba(255, 72, 0, 0.136) 100%
+  );
+
+  animation: sweep 9s infinite linear;
+  filter: blur(150px);
+}
+
+/* animação da luz */
+@keyframes sweep {
+  0% {
+    transform: translateX(-50%) translateY(-20%) rotate(10deg);
+  }
+  100% {
+    transform: translateX(50%) translateY(20%) rotate(10deg);
+  }
+}
+
+/* Responsivo para celular */
+@media (max-width: 900px) {
+  .hero-inner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero-image-wrapper {
+    margin-top: 40px;
+  }
+}
+
+.accent {
+  background: linear-gradient(90deg, #ea633d, #e47404f6 60%, #d80f0c);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-text {
+  margin-top: 16px;
+  max-width: 500px;
+  color: #ffffff;
+}
+
+.hero-buttons {
+  margin-top: 24px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn-neon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  border-radius: 100px;
+  font-weight: 600;
+  background: linear-gradient(80deg, #f03704, #a13a23, #d80f0c);
+  color: black;
+  text-decoration: none;
+  transition: 0.25s ease;
+  box-shadow: #7723a1 0px 0px 5px, #9b1fa2f2 0px 0px 8px;
+}
+
+.btn-neon:hover {
+  transform: translateY(-3px);
+  filter: brightness(1.05);
+  background: linear-gradient(
+    135deg,
+    #ee4917e4,
+    #c55938 60%,
+    rgb(184, 103, 103)
+  );
+  color: black;
+}
+
+/* Background animado */
+.bg-move {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transition: transform 0.9s cubic-bezier(0.2, 0.9, 0.2, 1);
+}
+
+/* ============================
+   SEÇÕES GERAIS
+============================ */
+
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 150px 16px 180px 50px;
+}
+
+.section-title {
+  font-size: 48px;
+  font-weight: 300;
+  text-align: center;
+  padding: 5px;
+  font-family: "Raleway", sans-serif;
+  color: #f7e2da;
+}
+
+.section-subtitle {
+  font-family: "Raleway", sans-serif;
+  font-size: 32px;
+  color: #d3450de9;
+  margin-top: 10px;
+  text-align: center;
+}
+
+#servicos {
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  padding: 80px 0; /* espaço interno vertical da seção */
+  /* fallback color enquanto a imagem carrega */
+  background-color: #000;
+}
+
+/* camada de imagem + escurecimento (usamos pseudo-elemento separado para melhor controle) */
+#servicos .bg-decorator {
+  position: relative; /* top:0; right:0; bottom:0; left:0; */
+}
+
+/* overlay escuro para garantir contraste do texto */
+#servicos .bg-decorator::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  /* ajuste a opacidade para mais/menos escuro (0.6 = relativamente escuro) */
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.55) 80%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
+}
+
+/* garante que conteúdo fique acima do background */
+#servicos .container {
+  position: relative;
+  z-index: 2;
+}
+
+/* Responsividade: reduzir padding/altura em telas pequenas */
+@media (max-width: 479px) {
+  #servicos {
+    padding: 48px 0;
+  }
+  .cards {
+    grid-auto-rows: 300px;
+    gap: 20px;
+  }
+  .card {
+    padding: 28px;
+    border-radius: 12px;
+  }
+  .section-title {
+    font-size: 24px;
+  }
+}
+/* CARDS DE SERVIÇOS*/
+.cards {
+  margin: 100px auto 0;
+  margin-bottom: 70px;
+  width: 100%;
+  max-width: 1400px; /* aumenta a largura máxima do grid */
+  display: grid;
+  gap: 40px; /* gap móvel por padrão */
+  padding: 0;
+  align-items: stretch; /* faz as células esticarem igualmente */
+  grid-auto-rows: 250px; /* fixa a altura das linhas (evita mudança de altura) */
+  justify-content: center;
+}
+
+/* breakpoint para desktop */
+@media (min-width: 768px) {
+  .cards {
+    gap: 110px;
+    grid-template-columns: repeat(3, minmax(0, 1fr)); /* 3 colunas iguais */
+    max-width: 1000px; /* se quiser ainda mais largura em telas grandes */
+  }
+}
+
+/* CARDS */
+.card {
+  display: grid; /* grid para controle interno */
+  grid-auto-rows: minmax(10px, auto);
+  justify-content: stretch;
+  width: 100%;
+  height: 100%;
+  padding: 32px; /* leve redução para responsividade */
+  border-radius: 20px;
+  border: 1px solid rgba(236, 81, 46, 0.22); /* leve borda em tom da paleta */
+  background: linear-gradient(135deg, var(--accent-1) 0%, var(--accent-3) 70%);
+  box-shadow: 0 8px 18px rgba(155, 31, 162, 0.322);
+  gap: 18px;
+  overflow: hidden;
+  color: var(--card-text-dark);
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 38px rgba(208, 15, 12, 0.26);
+}
+
+/* títulos dentro do .card */
+.card h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: inline-block;
+  background: linear-gradient(
+    80deg,
+    var(--accent-1),
+    var(--accent-2),
+    var(--accent-3)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  padding: 4px 8px;
+  border-radius: 8px;
+}
+
+/* parágrafos dentro do .cards container */
+.cards p {
+  font-size: 18px;
+  color: #f3eae2;
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+
+/* ========== 9) Ajustes para tornar imagem visível através dos cards ========== */
+/* faz cards semi-translúcidos quando quiser ver a imagem por trás (FAQ etc) */
+.semi-translucent,
+.faq-btn,
+.card-depoimento,
+.card {
+  background: linear-gradient(
+    180deg,
+    rgba(12, 12, 12, 0.62),
+    rgba(12, 12, 12, 0.48)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: #fff;
+}
+
+/* se quiser que um card mantenha seu gradiente forte (ex.: destaque), adicione classe .solid */
+.card.solid {
+  background: linear-gradient(135deg, var(--accent-1) 0%, var(--accent-3) 70%);
+  color: var(--card-text-dark);
+  border: 1px solid rgba(208, 15, 12, 0.12);
+}
+
+/* ========== 10) Footer / utilitários ========== */
+footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.6);
+  padding: 18px 16px;
+  margin-top: 48px;
+}
+.container {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* ========== 11) Pequenas correções responsivas ========== */
+@media (max-width: 900px) {
+  .faq-grid {
+    grid-template-columns: 1fr;
+    padding: 0 12px;
+    gap: 12px;
+  }
+  .hero-split {
+    text-align: left;
+    font-size: clamp(24px, 9vw, 40px);
+  }
+  .card {
+    padding: 20px;
+    border-radius: 12px;
+  }
+  .trust-section {
+    padding-bottom: 90px;
+  }
+  .trust-section::before {
+    background-position: center 85%;
+    background-size: 72% auto;
+  }
+}
+
+/* ========== 12) helpers (centering, clearfix) ========== */
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hide {
+  display: none;
+}
+
+.trust-section {
+  position: relative;
+  padding: 23px;
+  color: #fff;
+  background: #000;
+  overflow: hidden;
+  text-align: center;
+}
+
+.top-intro {
+  font-size: 20px;
+  width: 85%;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* substituir .qna-header */
+.qna-header {
+  margin-top: 380px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 48px;
+  font-weight: 300;
+  letter-spacing: -1px;
+}
+
+.qna-header h3:nth-child(1) {
+  text-align: left;
+}
+
+.h3D {
+  text-align: right;
+}
+
+/* substituir trust-section (reduz o espaçamento superior se existir) */
+.trust-section {
+  position: relative;
+  width: 100%;
+  color: white;
+  overflow: hidden;
+  padding-bottom: 80px; /* mantém espaço embaixo para o FAQ */
+}
+
+/* substituir .trust-section::before */
+.trust-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("./src/vista-da-majestosa-agua-viva-no-oceano.jpg");
+  background-size: 55%;
+  background-position: center center; /* move a imagem levemente para baixo (evita corte) */
+  background-repeat: no-repeat;
+  z-index: 0;
+  opacity: 60%;
+  margin-bottom: -450px;
+}
+
+/* ---------- TABLET (ex.: iPad, telas entre 600px e 1024px) ---------- */
+@media (max-width: 1024px) and (min-width: 601px) {
+  .trust-section::before {
+    background-size: 72%; /* aumenta pra preencher melhor no tablet */
+    background-position: center 42%; /* move levemente para baixo (ajuste fino) */
+    opacity: 0.55; /* um pouco menos opacity para leitura */
+    transform: translateY(6%); /* "puxa" a imagem um pouco pra baixo */
+  }
+}
+
+/* ---------- CELULAR (até 600px) ---------- */
+@media (max-width: 600px) {
+  .trust-section::before {
+    background-size: 140%; /* mais largo para manter assunto visível sem cortes */
+    background-position: center 70%; /* posiciona mais para baixo (evita corte de rosto/elementos) */
+    opacity: 0.3; /* reduz para não competir com conteúdo */
+    transform: translateY(
+      12%
+    ); /* empurra ainda mais pra baixo como você pediu */
+  }
+
+  /* em celulares muito estreitos, você pode querer usar cover para garantir preenchimento */
+  @media (max-width: 360px) {
+    .trust-section::before {
+      background-size: cover; /* garante que não apareça faixa vazia em telas muito pequenas */
+      background-position: center bottom;
+      opacity: 0.26;
+      transform: translateY(16%);
+    }
+  }
+}
+
+/* overlay para escurecer/ajustar contraste sem afetar conteúdo */
+.trust-section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: transparent; /* ajuste */
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* conteúdo por cima de tudo */
+.trust-section > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* TEXTO SUPERIOR */
+/* Headline estilo 'broken' com palavra(s) em cor */
+.top-text {
+  width: 100%;
+}
+
+.hero-split {
+  text-align: right; /* mantém o alinhamento à direita */
+  font-family: "Raleway", sans-serif; /* sua fonte */
+  margin: 0;
+  padding: 8px 24px 120px 24px; /* padding reduzido; modifique se quiser */
+  line-height: 0.96; /* compacto para quebrar próximo */
+  letter-spacing: -0.02em; /* ajuste fino */
+  display: block;
+  font-size: clamp(15px, 3.2vw, 70px); /* responsivo: cresce até 84px */
+  font-weight: 300; /* traço fino */
+  color: #ffffff; /* cor base (branco) */
+  text-wrap: balance;
+}
+
+/* cada linha do título em bloco para controle preciso */
+.hero-line {
+  display: block;
+  white-space: nowrap; /* evita quebra involuntária */
+}
+
+/* opcional: efeito de glow sutil por baixo da palavra de destaque */
+.hero-accent::after {
+  content: "";
+  display: block;
+  height: 4px;
+  margin-top: 6px;
+  width: 50%;
+  margin-left: auto;
+  margin-right: 0; /* alinhar ao final da palavra (right) */
+  background: linear-gradient(
+    90deg,
+    rgba(219, 74, 29, 0.25),
+    rgba(219, 56, 7, 0.18)
+  );
+  border-radius: 15px;
+  filter: blur(6px);
+  opacity: 0.9;
+}
+
+/* responsividade: em telas pequenas ajusta o tamanho e centraliza se preferir */
+@media (max-width: 768px) {
+  .hero-split {
+    text-align: center; /* no mobile costuma ficar melhor centralizado */
+    font-size: clamp(28px, 10vw, 44px);
+    line-height: 1.02;
+  }
+  .hero-line {
+    white-space: normal;
+  } /* permite quebra natural no mobile */
+  .hero-accent::after {
+    display: none;
+  } /* esconde o glow em telas menores */
+}
+
+/* TEXTOS LATERAIS (como You asked / We answered) */
+.side-label {
+  position: absolute;
+  top: 50%;
+  font-size: 2.4rem;
+  font-weight: 200;
+  opacity: 0.8;
+  transform: translateY(-50%);
+}
+
+.side-label.left {
+  left: 40px;
+}
+
+.side-label.right {
+  right: 40px;
+  text-align: right;
+}
+
+/* ÁREA DO ARCO */
+/* ============================
+   TRUST SECTION — paleta laranja
+   ============================ */
+
+/* Paleta: laranja principal + variações + destaque */
+:root {
+  --bg-dark: #020617;
+  --accent-1: #f03704; /* laranja vivo */
+  --accent-2: #a13a23; /* marrom avermelhado mais escuro */
+  --accent-3: #d80f0c; /* vermelho intenso */
+  --accent-highlight: #ff9a3c; /* cobre/dourado suave para destaque */
+  --muted: rgba(255, 255, 255, 0.66);
+}
+
+/* seção wrapper (mantém seu visual escuro) */
+.trust-section {
+  background: #000;
+  color: #fff;
+  padding: 40px 16px 84px;
+  position: relative;
+  overflow: visible;
+}
+
+/* TÍTULO — mantido, só atualiza o gradiente de destaque */
+.top-text {
+  max-width: 1180px;
+  margin: 0 auto 18px;
+  padding: 0 16px;
+}
+.hero-split {
+  text-align: right;
+  font-family: "Raleway", system-ui, -apple-system, "Segoe UI", sans-serif;
+  margin: 0;
+  padding: 8px 12px;
+  font-size: clamp(30px, 6.2vw, 56px);
+  font-weight: 300;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  color: #fff;
+  -webkit-font-smoothing: antialiased;
+}
+.hero-line {
+  display: block;
+  white-space: nowrap;
+}
+.accent {
+  background: linear-gradient(
+    90deg,
+    var(--accent-1),
+    var(--accent-highlight),
+    var(--accent-2)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 600;
+}
+
+/* ===========================
+   BENEFÍCIOS — GRID HARMONIOSA
+   =========================== */
+.beneficios-arco {
+  max-width: 1180px;
+  margin: 18px auto 0;
+  padding: 0 16px;
+  display: grid;
+  gap: 20px 18px;
+  grid-template-columns: repeat(12, 1fr);
+  grid-auto-rows: minmax(100px, auto);
+  align-items: start;
+}
+
+/* card base */
+.beneficios-arco .card-depoimento {
+  --card-radius: 14px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.02),
+    rgba(255, 255, 255, 0.01)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: var(--card-radius);
+  padding: 24px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 16px;
+  line-height: 1.4;
+  font-weight: 500;
+  box-shadow: 0 12px 30px rgba(2, 6, 23, 0.6);
+  transition: transform 0.28s cubic-bezier(0.2, 0.9, 0.25, 1),
+    box-shadow 0.28s ease, filter 0.28s ease;
+  backdrop-filter: blur(6px);
+  z-index: 2;
+}
+
+/* === NOVA DISTRIBUIÇÃO (sem sobreposição): 
+   linha 1: blue / orange / purple (cada 4 col)
+   linha 2: teal (central maior) and green (to the right) */
+.card-depoimento.blue {
+  grid-column: 1 / span 4;
+  grid-row: 1;
+}
+.card-depoimento.orange {
+  grid-column: 5 / span 4;
+  grid-row: 1;
+}
+.card-depoimento.purple {
+  grid-column: 9 / span 4;
+  grid-row: 1;
+}
+
+/* segunda linha — central mais largo e green alinhado à direita */
+.card-depoimento.teal {
+  grid-column: 3 / span 6;
+  grid-row: 2;
+  transform: translateY(-6px);
+  font-weight: 600;
+  font-size: 17px;
+}
+.card-depoimento.green {
+  grid-column: 9 / span 4;
+  grid-row: 2;
+  transform: translateY(8px);
+}
+
+/* hover */
+.beneficios-arco .card-depoimento:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 28px 70px rgba(2, 6, 23, 0.75);
+  filter: saturate(1.05);
+}
+
+/* ========== GRADIENTES / CORES (usando sua paleta) ========== */
+/* azul classe permanece nome, mas troquei o visual para laranja que você pediu (nome da classe apenas para referência) */
+.card-depoimento.blue {
+  background: linear-gradient(135deg, var(--accent-1) 0%, var(--accent-3) 30%);
+  color: #140300; /* texto escuro para contraste */
+  border: 1px solid rgba(208, 15, 12, 0.12);
+  box-shadow: 0 10px 36px rgba(208, 15, 12, 0.06);
+}
+.card-depoimento.orange {
+  background: linear-gradient(135deg, var(--accent-2) 0%, var(--accent-1) 40%);
+  color: #140300;
+  border: 1px solid rgba(161, 58, 35, 0.437);
+  box-shadow: 0 10px 36px rgba(148, 40, 15, 0.06);
+}
+.card-depoimento.teal {
+  /* destaque central com degrade sofisticado: accent-1 -> highlight -> accent-3 */
+  background: linear-gradient(
+    135deg,
+    #e42e05 0%,
+    #f35c0b 45%,
+    var(--accent-3) 100%
+  );
+  color: #140300;
+  border: 1px solid rgba(240, 55, 4, 0.12);
+  box-shadow: 0 10px 40px rgba(137, 9, 216, 0.06);
+}
+.card-depoimento.purple {
+  background: linear-gradient(
+    135deg,
+    rgba(176, 24, 80, 0.763) 0%,
+    rgba(124, 17, 130, 0.812) 70%
+  );
+  /* mantive um roxo suave para dar contraste (opcional) — se preferir troco por laranja também */
+  color: #14030b;
+  border: 1px solid rgba(176, 24, 80, 0.1);
+  box-shadow: 0 10px 36px rgba(176, 24, 80, 0.06);
+}
+.card-depoimento.green {
+  /* variação ciano->verde antiga substituída por tom laranja/cobre suave */
+  background: linear-gradient(135deg, #f03704 20%, var(--accent-2) 70%);
+  color: #140300;
+  border: 1px solid rgba(240, 46, 20, 0.414);
+  box-shadow: 0 10px 36px rgba(230, 44, 7, 0.06);
+}
+
+/* decorativa pequena barra */
+.card-depoimento::after {
+  content: "";
+  display: block;
+  width: 36px;
+  height: 4px;
+  margin: 12px auto 0;
+  border-radius: 6px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.25),
+    rgba(255, 255, 255, 0.06)
+  );
+  opacity: 0.9;
+}
+
+/* ======================
+   RESPONSIVE (mobile)
+   ====================== */
+@media (max-width: 999px) {
+  .beneficios-arco {
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+    gap: 14px;
+  }
+  .card-depoimento.blue,
+  .card-depoimento.orange,
+  .card-depoimento.purple,
+  .card-depoimento.teal,
+  .card-depoimento.green {
+    grid-column: auto !important;
+    grid-row: auto !important;
+    transform: none !important;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    box-shadow: 0 10px 30px rgba(2, 6, 23, 0.6);
+  }
+  .card-depoimento.teal {
+    order: 2;
+  } /* mantém destaque central em ordem */
+}
+
+/* ajustes finos para telas maiores */
+@media (min-width: 1200px) {
+  .trust-section {
+    padding-top: 56px;
+  }
+  .hero-split {
+    font-size: clamp(36px, 5.4vw, 68px);
+  }
+}
+
+/* variáveis de paleta (reaproveite/defina no topo do seu CSS se já não existirem) */
+:root {
+  --bg-dark: #020617;
+  --accent-1: #f03704; /* laranja vivo */
+  --accent-2: #a13a23; /* marrom avermelhado */
+  --accent-3: #d80f0c; /* vermelho intenso */
+  --accent-highlight: #ff9a3c; /* cobre/dourado suave */
+  --muted: rgba(255, 255, 255, 0.66);
+}
+
+/* ----- SEÇÃO DÚVIDAS ----- */
+#duvidas {
+  width: 100%;
+  padding: 40px 20px;
+  box-sizing: border-box;
+}
+
+/* títulos centrais */
+.qna-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  text-align: center;
+  margin-bottom: 15%;
+  margin-top: 115px;
+}
+
+.qna-header h3 h3D {
+  font-size: 32px;
+  font-weight: 300;
+}
+
+/* GRID das dúvidas */
+.faq-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px; /* ← ESPAÇO ENTRE AS LINHAS E COLUNAS */
+}
+
+/* Colunas */
+.faq-col {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  gap: 20px; /* ← ESPAÇO ENTRE OS ACORDEÕES DA MESMA COLUNA */
+}
+
+/* Cada item */
+.faq-item {
+  width: 100%;
+  background-color: #000;
+  border-radius: 8px;
+  opacity: 80%;
+}
+
+/* Botão do acordeão */
+.faq-btn {
+  width: 100%;
+  background: linear-gradient(
+    130deg,
+    rgba(222, 37, 13, 0.855),
+    rgba(238, 67, 5, 0.963) 100%
+  );
+  border-radius: 10px;
+  padding: 15px 20px;
+  border: #000;
+  font-size: 18px;
+  padding: 15px 5;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+/* Conteúdo */
+.faq-content {
+  display: none;
+  padding: 10px 0 0 0;
+  text-align: left;
+}
+
+.faq-content p {
+  margin: 0;
+  line-height: 1.5;
+  text-align: left;
+}
+
+/* Mostrar quando ativo */
+.faq-item.active .faq-content {
+  display: block;
+}
+
+.faq-item.active .faq-btn span {
+  transform: rotate(45deg);
+}
+
+.faq-btn:hover {
+  background: rgba(194, 56, 9, 0.3);
+  border-radius: 8px;
+  padding: 15px 20px;
+}
+/* Conteúdo aberto */
+.faq-item.active .faq-content {
+  max-height: 150px;
+  margin-top: 10px;
+}
+
+.faq-item.active .faq-btn span {
+  transform: rotate(45deg);
+}
+
+/* --------------------------
+   MOBILE / RESPONSIVO
+   max-width: 600px (celulares)
+   -------------------------- */
+@media (max-width: 800px) {
+  /* Container */
+  #duvidas {
+    padding: 28px 16px;
+  }
+
+  /* Títulos centrais -> empilhados */
+  .qna-header {
+    grid-template-columns: 1fr;
+    text-align: center;
+    margin-top: 60px; /* reduzido para mobile */
+    margin-bottom: 8%; /* menos espaçamento em relação ao desktop */
+    gap: 8px;
+  }
+
+  .qna-header h3 h3D {
+    font-size: 18px;
+    font-weight: 400;
+    margin: 0;
+  }
+
+  /* GRID das dúvidas -> 1 coluna */
+  .faq-grid {
+    grid-template-columns: 1fr;
+    gap: 18px; /* menos espaço entre itens no mobile */
+  }
+
+  .faq-col {
+    gap: 12px; /* espaçamento interno reduzido */
+    margin: 0;
+  }
+
+  /* Cada item */
+  .faq-item {
+    background-color: #000;
+    border-radius: 12px;
+    opacity: 0.95;
+    padding: 8px;
+    text-align: left;
+  }
+
+  /* Botão do acordeão - maior área de toque */
+  .faq-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    text-align: left;
+    justify-content: space-between;
+    padding: 14px 16px;
+    font-size: 24px;
+    line-height: 1.2;
+    border-radius: 10px;
+    cursor: pointer;
+    gap: 12px;
+    min-height: 58px; /* altura fixa igual pra todas */
+  }
+
+  .faq-btn:hover {
+    /* no hover forte em mobile — mantém apenas leve feedback se houver */
+    background: rgba(194, 56, 9, 0.25);
+  }
+
+  /* Ícone de expansão (span) — animação suave */
+  .faq-btn span {
+    display: inline-block;
+    transition: transform 0.25s ease;
+    transform-origin: center;
+    font-size: 16px;
+  }
+
+  /* Conteúdo: animação por max-height (mais suave em mobile) */
+  .faq-content {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0;
+    transition: max-height 0.32s ease, padding 0.32s ease;
+    text-align: left;
+    font-size: 16px;
+  }
+
+  .faq-content p {
+    margin: 0;
+    padding: 0;
+    line-height: 1.5;
+    font-size: 14px;
+  }
+
+  /* Mostrar quando ativo (override para animação) */
+  .faq-item.active .faq-content {
+    max-height: 420px; /* suficiente para textos mais longos — ajusta conforme precisar */
+    padding-top: 10px;
+    margin-top: 8px;
+  }
+
+  .faq-item.active .faq-btn span {
+    transform: rotate(45deg); /* mantém seu comportamento */
+  }
+  /* Ajuste adicional para celulares bem pequenos */
+  @media (max-width: 360px) {
+    .qna-header h3 {
+      font-size: 14px;
+    }
+    .faq-btn {
+      font-size: 12px;
+      padding: 12px 12px;
+    }
+    .faq-content p {
+      font-size: 10px;
+    }
+    .faq-item.active .faq-content {
+      max-height: 360px;
+    }
+  }
+}
+/* ===== SECTION CONTATO ===== */
+/* ===========================
+   CONTATO — layout tipo hero + form
+   Palette: #f03704, #ff9a3c, #d80f0c
+   =========================== */
+:root {
+  --bg-dark: #020617;
+  --accent-1: #f03704;
+  --accent-2: #ff9a3c;
+  --accent-3: #d80f0c;
+  --accent-grad: linear-gradient(
+    135deg,
+    var(--accent-1),
+    var(--accent-2),
+    var(--accent-3)
+  );
+  --muted: rgba(255, 255, 255, 0.68);
+  --card-bg: rgba(255, 255, 255, 0.02);
+  --input-bg: rgba(255, 255, 255, 0.03);
+  --text: #ffffff;
+  --text-dark: #140300;
+}
+
+/* wrapper */
+.contato-section {
+  background: #000;
+  color: var(--text);
+  padding: 60px 16px;
+}
+
+/* container */
+.contato-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* grid: visual à esquerda / form à direita */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 520px;
+  gap: 36px;
+  align-items: center;
+  margin-top: -80px;
+}
+
+/* left column visual */
+.contact-left {
+  position: relative;
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* textual content above the image */
+.contact-copy {
+  position: relative;
+  z-index: 2;
+  max-width: 640px;
+  padding: 28px;
+}
+.contato-title {
+  font-size: clamp(28px, 4.2vw, 48px);
+  margin: 0 0 8px;
+  font-weight: 700;
+  color: var(--text);
+}
+.contato-sub {
+  margin: 0 0 14px;
+  color: #f35c0bf5;
+  font-size: 20px;
+}
+.contato-text {
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.5;
+  margin-bottom: 14px;
+}
+.contato-info {
+  color: var(--muted);
+  margin-top: 10px;
+}
+.contato-link {
+  color: #f35c0bf5;
+  text-decoration: underline;
+}
+
+/* ---------------------------------------------------
+   FORM CARD (direita)
+   --------------------------------------------------- */
+.contact-form-wrap {
+  z-index: 3;
+}
+
+.formulario-contato {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.02),
+    rgba(255, 255, 255, 0.01)
+  );
+  border-radius: 14px;
+  padding: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 20px 60px rgba(2, 6, 23, 0.65);
+  backdrop-filter: blur(6px);
+}
+
+/* header */
+.form-header h3 {
+  margin: 0 0 6px;
+  font-size: 20px;
+}
+.form-header .small {
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* rows & inputs */
+.row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.row .input-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.input-group input,
+.input-group textarea {
+  background: var(--input-bg);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 12px 14px;
+  border-radius: 10px;
+  color: var(--text);
+  font-size: 15px;
+  outline: none;
+  transition: box-shadow 0.12s, border-color 0.12s;
+}
+.input-group input::placeholder {
+  color: rgba(255, 255, 255, 0.36);
+}
+
+.input-group input:focus {
+  border-color: rgba(240, 56, 20, 0.22);
+  box-shadow: 0 10px 40px rgba(240, 56, 20, 0.06);
+}
+
+/* action */
+.form-actions {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.btn-submit {
+  background: var(--accent-grad);
+  color: var(--text-dark);
+  border: none;
+  padding: 14px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 18px 50px rgba(208, 15, 12, 0.12);
+  transition: transform 0.14s ease, filter 0.14s ease;
+}
+.btn-submit:hover {
+  transform: translateY(-3px);
+  filter: brightness(1.02);
+}
+
+/* status msg */
+.status-msg {
+  font-size: 14px;
+  color: var(--muted);
+  min-height: 18px;
+}
+
+/* small devices — stack and center */
+@media (max-width: 980px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .contact-left {
+    min-height: 300px;
+    padding-top: 8px;
+  }
+  .contact-bg-image {
+    width: 90%;
+    transform: translateY(18%);
+  }
+  .row {
+    flex-direction: column;
+  }
+  .formulario-contato {
+    padding: 16px;
+  }
+}
+
+/* accessibility focus */
+input:focus,
+textarea:focus,
+button:focus {
+  outline: 3px solid rgba(240, 56, 20, 0.12);
+  outline-offset: 3px;
+}
+
+/* Links */
+.link {
+  color: #f35c0bf5;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.link:hover {
+  opacity: 0.8;
+}
+
+/* ============================
+   FOOTER
+============================ */
+.footer {
+  padding: 16px 0;
+  border-top: 1px solid rgba(245, 241, 240, 0.4);
+  align-items: center;
+}
+
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.footer-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.footer-info p {
+  color: #f6f4f3c7;
+  font-size: 13px;
+  margin: 0;
+}
+
+.footer-social {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  color: #f6f4f3c7;
+  transition: color 0.3s ease, transform 0.3s ease;
+  text-decoration: none;
+}
+
+.social-link:hover {
+  color: #f03704;
+  transform: translateY(-3px);
+}
+
+.social-link svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Ano automático */
+#year {
+  color: #f6f4f3c7;
+  align-items: center;
+}
+
+/* Responsivo */
+@media (max-width: 600px) {
+  .footer-inner {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .footer-info {
+    text-align: center;
+    width: 100%;
+  }
+
+  .footer-social {
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+/* ============================
+   BOTÃO FLUTUANTE WHATSAPP
+============================ */
+.whatsapp-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  text-decoration: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  z-index: 999;
+}
+
+.whatsapp-btn:hover {
+  transform: scale(1.1) translateY(-4px);
+  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.5);
+}
+
+.whatsapp-btn:active {
+  transform: scale(0.95);
+}
+
+/* Responsivo para mobile */
+@media (max-width: 480px) {
+  .whatsapp-btn {
+    bottom: 16px;
+    right: 16px;
+    width: 48px;
+    height: 48px;
+  }
+
+  .whatsapp-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* Distribui 3 itens na coluna esquerda e 3 na direita */
+.faq-item:nth-child(1),
+.faq-item:nth-child(2),
+.faq-item:nth-child(3) {
+  grid-column: 1; /* esquerda */
+}
+
+.faq-item:nth-child(4),
+.faq-item:nth-child(5),
+.faq-item:nth-child(6) {
+  grid-column: 2; /* direita */
+}
+.faq-item {
+  margin-bottom: 20px;
+}
+
+/* ============================
+   PÁGINA DE OBRIGADO
+============================ */
+.thank-you-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  color: #fff;
+  padding: 40px 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.thank-you-container {
+  max-width: 700px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.thank-you-content {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.02),
+    rgba(255, 255, 255, 0.01)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 20px;
+  padding: 60px 40px;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 20px 60px rgba(2, 6, 23, 0.65);
+  animation: slideUp 0.6s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.thank-you-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #f03704, #ff9a3c, #d80f0c);
+  border-radius: 50%;
+  font-size: 48px;
+  color: #140300;
+  margin-bottom: 24px;
+  font-weight: 700;
+  box-shadow: 0 20px 50px rgba(240, 55, 4, 0.3);
+}
+
+.thank-you-title {
+  font-family: "Raleway", sans-serif;
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 700;
+  margin-bottom: 12px;
+  background: linear-gradient(90deg, #f03704, #ff9a3c, #d80f0c);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.thank-you-subtitle {
+  font-size: 20px;
+  color: #ff9a3c;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+.thank-you-text {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+
+.thank-you-next-steps {
+  background: rgba(240, 55, 4, 0.08);
+  border: 1px solid rgba(240, 55, 4, 0.2);
+  border-radius: 12px;
+  padding: 12px 8px 8px 12px;
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.thank-you-next-steps h3 {
+  font-size: 16px;
+  font-weight: 300;
+  margin-bottom: 12px;
+  color: #ff9a3c;
+}
+
+.thank-you-next-steps ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.thank-you-next-steps li {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 8px;
+  padding-left: 24px;
+  position: relative;
+}
+
+.thank-you-next-steps li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: #f03704;
+  font-weight: 700;
+}
+
+.thank-you-buttons {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  border-radius: 100px;
+  font-weight: 600;
+  background: rgba(240, 55, 4, 0.15);
+  color: #ff9a3c;
+  border: 1px solid rgba(240, 55, 4, 0.4);
+  text-decoration: none;
+  transition: 0.25s ease;
+}
+
+.btn-secondary:hover {
+  background: rgba(240, 55, 4, 0.25);
+  transform: translateY(-2px);
+  border-color: rgba(240, 55, 4, 0.6);
+}
+
+.thank-you-footer {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+}
+
+.thank-you-link {
+  color: #ff9a3c;
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+.thank-you-link:hover {
+  color: #f03704;
+}
+
+/* Decoração visual */
+.thank-you-decoration {
+  position: absolute;
+  top: 50%;
+  left: -100px;
+  width: 400px;
+  height: 400px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px) translateX(0px);
+  }
+  50% {
+    transform: translateY(-20px) translateX(20px);
+  }
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .thank-you-content {
+    padding: 40px 20px;
+  }
+
+  .thank-you-title {
+    font-size: 36px;
+  }
+
+  .thank-you-buttons {
+    flex-direction: column;
+  }
+
+  .btn-neon,
+  .btn-secondary {
+    width: 100%;
+  }
+
+  .thank-you-decoration {
+    display: none;
+  }
+}
+
+/* ======= REVEAL ANIMATIONS (IntersectionObserver) ======= */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px) scale(0.995);
+  transition: opacity 0.6s cubic-bezier(0.2, 0.9, 0.2, 1),
+    transform 0.6s cubic-bezier(0.2, 0.9, 0.2, 1);
+  will-change: opacity, transform;
+}
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* ======= BACK TO TOP BUTTON ======= */
+.back-to-top {
+  position: fixed;
+  right: 20px;
+  bottom: 90px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+  color: #140300;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+  z-index: 1000;
+  transform: translateY(8px);
+  transition: transform 0.18s ease, opacity 0.18s ease;
+  opacity: 0;
+  pointer-events: none;
+}
+.back-to-top.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.back-to-top svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* ======= FORM ERROR / STATUS ======= */
+.input-error {
+  border-color: rgba(255, 80, 60, 0.9) !important;
+  box-shadow: 0 8px 28px rgba(240, 56, 20, 0.08);
+}
+.status-msg.success {
+  color: #bfeccd;
+}
+.status-msg.error {
+  color: #ffd5cf;
+}
+
+/* ======= COUNTERS ======= */
+.counter {
+  font-weight: 700;
+  font-size: clamp(20px, 3.2vw, 36px);
+}

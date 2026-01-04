@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lourcode · Estúdio digital</title>
+
+  <link rel="stylesheet" href="./style.css">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <meta http-equiv="Permissions-Policy" content="unload=()">
+  <link rel="icon" type="image/x-icon" href="./src/favicon.ico">
+  
+
+  <!-- AOS -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">Lourcode</div>
+
+      <nav class="nav-desktop">
+        <a href="#home">Home</a>
+        <a href="#servicos">Serviços</a>
+        <a href="#metodologia">Metodologia</a>
+             <a href="#duvidas">Dúvidas</a>
+        <a href="#contato">Contato</a>
+      </nav>
+
+      <button id="menu-toggle" class="menu-toggle" aria-label="Abrir menu">
+        <span class="menu-icon"></span>
+      </button>
+    </div>
+
+    <nav id="mobile-nav" class="nav-mobile">
+      <a href="#home">Home</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#metodologia">Metodologia</a>
+      <a href="#duvidas">Dúvidas</a>
+      <a href="#contato">Contato</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section id="home" class="hero-full">
+      <div class="hero-inner">
+        <div>
+        <!-- <p class="hero-sub">Landing Pages · MobileMaker · Tráfego Pago</p> -->
+          <h1 class="hero-title">
+            Comunicação que <span class="accent">vende</span>.<br>
+            Estratégias com <span class="accent">resultados</span>.
+          </h1>
+         
+          <!--
+          <p class="hero-text">
+            Landing Pages, vídeos MobileMaker e mídia paga pensados para performance.
+          </p> -->
+
+          <div class="hero-buttons">
+            <a href="https://wa.me/5541987173526" target="_blank" class="btn-neon">Falar no WhatsApp</a>
+          </div>
+        </div>
+
+        <!-- NOVO BLOCO: IMAGEM AO LADO -->
+      <div class="hero-image-wrapper">
+        <img src="./src/mockup.png" alt="Mockup" class="hero-image">
+        <div class="light-sweep"></div>
+    </section> 
+ 
+<!-- HTML: SERVIÇOS -->
+<section id="servicos">
+  <div class="bg-decorator" aria-hidden="true"></div>
+
+  <div class="container" data-aos="fade-up">
+    <h2 class="section-title">Nossos serviços</h2>
+    <p class="section-subtitle">Uma estrutura prática para tirar seu projeto do papel.</p>
+
+    <div class="cards">
+      <article class="card" data-aos="fade-up">
+        <h3>Landing Pages</h3>
+        <p>Desenvolvimento com foco na experiência do usuário.</p>
+      </article>
+
+      <article class="card" data-aos="fade-up" data-aos-delay="80">
+        <h3>Mobilemaker</h3>
+        <p>Roteiro, gravação, edição de vídeos verticais e qualidade nas postagens.</p>
+      </article>
+
+      <article class="card" data-aos="fade-up" data-aos-delay="160">
+        <h3>Tráfego Pago</h3>
+        <p>Campanhas, relatórios, testes de criativos e otimização contínua.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="metodologia" class="trust-section">
+  <div class="top-text">
+    <h1 class="hero-split">
+      <span class="hero-line"><span class="accent">Confiança</span> que começa</span>
+      <span class="hero-line">no primeiro <span class="accent">contato</span></span>
+    </h1>
+  </div>
+
+  <div class="beneficios-arco" aria-hidden="true">
+    <article class="card-depoimento blue">
+      <p>Estratégia clara e bem definida.</p>
+    </article>
+
+    <article class="card-depoimento orange">
+      <p>Soluções personalizadas.</p>
+    </article>
+
+    <article class="card-depoimento teal">
+      <p>Processo eficiente e direto.</p>
+    </article>
+
+    <article class="card-depoimento purple">
+      <p>Comunicação transparente.</p>
+    </article>
+
+    <article class="card-depoimento green">
+      <p>Criatividade + excelência técnica.</p>
+    </article>
+  </div>
+</section>
+
+
+<section id="duvidas">
+  <!-- TÍTULOS CENTRAIS (iguais ao layout original) -->
+  <div class="qna-header">
+    <h3>Dúvidas</h3>
+    <h3 class="h3D">Respostas</h3>
+  </div>
+<!-- ACORDEÕES – agora com os SEUS PROCESSOS + BENEFÍCIOS dentro -->
+<div class="faq-grid">
+  <!-- Coluna 1 -->
+  <div class="faq-col">
+    <div class="faq-item">
+      <button class="faq-btn">Como funciona o início do projeto?<span>+</span></button>
+      <div class="faq-content">
+        <p>Diagnóstico inicial — entendemos sua necessidade e analisamos o que o projeto precisa.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-btn">Como vocês planejam o projeto?<span>+</span></button>
+      <div class="faq-content">
+        <p>Planejamento estratégico — criamos um mapa claro com direção, identidade e metas.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-btn">Quais benefícios eu tenho no processo?<span>+</span></button>
+      <div class="faq-content">
+        <p>Comunicação clara, eficiência, criatividade e foco total na entrega final.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Coluna 2 -->
+  <div class="faq-col">
+    <div class="faq-item">
+      <button class="faq-btn">Como é o desenvolvimento?<span>+</span></button>
+      <div class="faq-content">
+        <p> Desenvolvimento — transformamos sua visão em estrutura, design e funcionalidade.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-btn">Posso dar feedback durante o processo?<span>+</span></button>
+      <div class="faq-content">
+        <p> Apresentação e ajustes — você valida, revisa e ajustamos tudo até ficar perfeito.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-btn">E depois da entrega?<span>+</span></button>
+      <div class="faq-content">
+        <p> Entrega final — tudo organizado, revisado e pronto para usar.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>
+<section id="contato" class="contato-section">
+  <div class="contato-container">
+    <div class="contact-grid">
+
+      <!-- LADO ESQUERDO: destaque visual / texto -->
+      <div class="contact-left" aria-hidden="false">
+        <div class="contact-copy">
+          <h2 class="contato-title">Vamos conversar?</h2>
+          <p class="contato-sub">Nos conte em que fase está seu projeto.</p>
+          <p class="contato-text">
+        Você pode chamar direto no WhatsApp ou enviar um e-mail. Assim entendemos melhor o seu negócio, o que você já tem hoje
+        (site, redes sociais, anúncios) e o que você espera alcançar nesse próximo passo.
+          </p>
+
+          <p class="contato-info">
+            <strong>WhatsApp</strong><br>
+            <a href="https://wa.me/5541987173526" target="_blank" class="contato-link">Clique aqui</a>
+          </p>
+
+          <p class="contato-info">
+            <strong>E-mail</strong><br>
+            <a href="mailto:contato@lourcode.com.br" class="contato-link">contato@lourcode.com.br</a>
+          </p>
+        </div>
+      </div>
+
+      <!-- LADO DIREITO: FORMULÁRIO -->
+      <div class="contact-form-wrap">
+        <form id="contactForm" class="formulario-contato" autocomplete="off">
+          <div class="form-header">
+            <h3>Fale com a gente</h3>
+            <p class="small">Preencha os campos</p>
+          </div>
+
+          <div class="row">
+            <div class="input-group">
+              <label class="sr-only" for="nome">Seu nome</label>
+              <input id="nome" name="nome" type="text" placeholder="Seu nome" required>
+            </div>
+
+            <div class="input-group">
+              <label class="sr-only" for="empresa">Nome da empresa</label>
+              <input id="empresa" name="empresa" type="text" placeholder="Nome da empresa">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-group">
+              <label class="sr-only" for="email">Seu e-mail</label>
+              <input id="email" name="email" type="email" placeholder="Seu e-mail" required>
+            </div>
+
+            <div class="input-group">
+              <label class="sr-only" for="instagram">Instagram da empresa</label>
+              <input id="instagram" name="instagram" type="text" placeholder="Instagram da empresa">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-group">
+              <label class="sr-only" for="telefone">Seu telefone</label>
+              <input id="telefone" name="telefone" type="tel" placeholder="Seu telefone" required>
+            </div>
+
+            <div class="input-group">
+              <label class="sr-only" for="mensagem">Mensagem</label>
+              <input id="mensagem" name="mensagem" type="text" placeholder="Breve descrição do projeto (opcional)">
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn-submit">Enviar pedido</button>
+            <div id="statusMsg" class="status-msg" aria-live="polite"></div>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+  <!-- FOOTER -->
+   <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-info">
+        <p>&copy; <span id="year"></span> Lourcode · Todos os direitos reservados.</p>
+        <p>Landing pages, vídeos e tráfego pago.</p>
+      </div>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/lourcode?igsh=MXN5c2VnMWFzOWZoYw%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <circle cx="17.5" cy="6.5" r="1.5"></circle>
+          </svg>
+        </a>
+        <a href="https://facebook.com/lourcode" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Facebook">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 2h-3a6 6 0 0 0-6 6v3H7v4h2v8h4v-8h2l1-4h-3V8a1 1 0 0 1 1-1h2z"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+  
+  <!-- BOTÃO FLUTUANTE WHATSAPP -->
+  <a href="https://wa.me/5541987173526" target="_blank" rel="noopener noreferrer" class="whatsapp-btn" aria-label="Fale conosco no WhatsApp">
+    <img src="./src/icons8-whatsapp.svg" alt="WhatsApp logo: green and white messaging app icon for contacting Lourcode studio">
+  </a>
+</svg>
+  </a>
+</body>
+ <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
+  <script src="./script.js" defer></script>
+
+
+</html>
